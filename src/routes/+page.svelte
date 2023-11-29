@@ -1,3 +1,35 @@
+<script>
+    let input;
+    let errMsg;
+
+    const handleSubmit = () => {
+        console.log(input.value);
+        if(input.value === '') {
+            errMsg.innerHTML = 'Please add a link';
+            input.classList.add('border-red');
+        } else if(!validURL(input.value)) {
+            errMsg.innerHTML = 'Please add a valid link';
+            input.classList.add('border-red');
+        } else {
+            errMsg.innerHTML = '';
+            input.classList.remove('border-red');
+            alert('Link added!');
+        }
+    };
+
+    const validURL = (str) => {
+        let pattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+            '((\\d{1,3}\\.){3}\\d{1,3}))' +
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+            '(\\?[;&a-z\\d%_.~+=-]*)?' +
+            '(\\#[-a-z\\d_]*)?$',
+            'i'
+        )
+        return !!pattern.test(str)
+    }
+</script>
 <!-- Nav Container -->
 <nav class="relative container mx-auto p-6">
     <!-- Flex Container for all Items -->
@@ -52,9 +84,22 @@
     <!-- Shorten Container -->
     <div class="max-w-4xl mx-auto p-6 space-y-6">
         <!-- Form -->
-        <form id="link-form" class="relative flex flex-col w-full p-10 -mt-20 space-y-4 bg-darkViolet rounded-lg md:flex-row md:space-y-0 md:space-x-3">
-            <input type="text" class="flex-1 p-3 border-2 rounded-lg placeholder-yellow-500 focus:outline-none" placeholder="Shorten a link here!" id="link-input">
+        <form 
+            on:submit|preventDefault={handleSubmit}
+            id="link-form" 
+            class="relative flex flex-col w-full p-10 -mt-20 space-y-4 bg-darkViolet rounded-lg md:flex-row md:space-y-0 md:space-x-3">
+            <input 
+                bind:this={input}
+                type="text" 
+                class="flex-1 p-3 border-2 rounded-lg placeholder-yellow-500 focus:outline-none" 
+                placeholder="Shorten a link here!" 
+                id="link-input"
+            >
             <button class="px-10 py-3 text-white bg-cyan rounded-lg hover:bg-cyanLight focus:outline-none md:py-2">Shorten It!</button>
+            <!-- Error messages -->
+            <div bind:this={errMsg} id="err-msg" class="absolute left-7 bottom-3 text-red text-sm italic">
+
+            </div>
         </form>
         <!-- Link 1 -->
         <div class="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg md:flex-row">
