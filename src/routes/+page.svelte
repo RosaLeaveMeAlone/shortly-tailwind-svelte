@@ -58,7 +58,6 @@
             <div class="hover:text-veryDarkViolet">Login</div>
             <a href="#" class="px-8 py-3 font-bold text-white bg-cyan rounded-full hover:opacity-70">Sign Up</a>
         </div>
-        <!-- TODO: Hamburger Menu -->
 
         <button
             bind:this={menuBtn} on:click={navToggle}
@@ -91,7 +90,6 @@
             </div>
         </div>
     </div>
-    <!-- TODO: Mobile Menu -->
 </nav>
 <!-- Hero section -->
 <section id="hero">
